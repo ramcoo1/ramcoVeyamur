@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>💜 Yağmuruma 💜</title>
+
+<style>
+:root{
+  --mor1:#2a003d;
+  --mor2:#4b006e;
+  --mor3:#7b2cbf;
+  --mor4:#c77dff;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,var(--mor1),var(--mor2));
+  color:white;
+  overflow-x:hidden;
+}
+
+/* LED ŞERİTLER */
+.led{
+  position:fixed;
+  top:0;
+  bottom:0;
+  width:14px;
+  background:repeating-linear-gradient(
+    to bottom,
+    #c77dff 0 10px,
+    #7b2cbf 10px 20px,
+    #ffffff 20px 30px
+  );
+  animation:led 1s infinite alternate;
+  z-index:5;
+}
+.left{left:0;}
+.right{right:0;}
+
+@keyframes led{
+  from{filter:brightness(1);}
+  to{filter:brightness(1.6);}
+}
+
+/* ANA */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:60px 40px;
+}
+
+h1{
+  text-align:center;
+  font-size:48px;
+  color:var(--mor4);
+  margin-bottom:40px;
+}
+
+/* GALERİ */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:20px;
+  transition:.4s;
+}
+
+.gallery img:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px var(--mor4);
+}
+
+/* YAZI */
+.big-text{
+  margin:80px 0;
+  font-size:28px;
+  text-align:center;
+  line-height:1.6;
+  color:#f3d9ff;
+}
+
+/* SAYAÇ */
+.counter{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:120px;
+  color:var(--mor4);
+}
+
+/* KALPLER */
+.heart{
+  position:fixed;
+  font-size:26px;
+  cursor:pointer;
+  animation:float 6s linear infinite;
+  z-index:3;
+}
+
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-120vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 ARKA PLAN MÜZİĞİ -->
+<audio autoplay loop>
+  <source src="muzik.mp3" type="audio/mpeg">
+</audio>
+
+<div class="led left"></div>
+<div class="led right"></div>
+
+<div class="container">
+<h1>💜 Sadece Sana Özel 💜</h1>
+
+<div class="gallery">
+  <img src="IMG_8491.jpg">
+  <img src="IMG_9392.jpeg">
+  <img src="IMG_9394.jpeg">
+  <img src="DEB372E5-5122-4FF9-8EBA-A7401B18C028.jpg">
+  <img src="IMG_8532.jpeg">
+  <img src="IMG_9041.jpeg">
+  <img src=".0e21cbda-4104-4ae2-8695-d27e7d1ded67.jpg">
+  <img src="IMG_9907.jpeg">
+</div>
+
+<div class="big-text"> Hayatım iyi ki varsın iyi ki 
+  hayatımdasın iyi ki tanısmısız seni herseyden 
+  herkeslerden coook seviyorum cok asıgım sana 
+  senin icin her seyi yaparım hep beraber olalım 
+  her seyi beraber yasayalım askım hic ayrılmayalım sensiz
+  yapamam canım askım ne olursa olsun sımsıkı sarılalım 
+  hep beraber kalalım yanaklarını yedigim
+</div>
+
+<div class="counter" id="counter"></div>
+</div>
+
+<script>
+/* ❤️ MESAJLAR */
+const messages = [
+  "Seni seviyorum yağmurum 💜",
+  "Kalbim hep seninle 🤍",
+  "İyi ki benimlesin",
+  "Bu kalp sadece sana ait",
+  "Seninle daha çok börek yiyelim balım 🥐",
+  "Yanaklarını özledim 💕",
+  "Ne zaman buluşuyoruz sevgilim?",
+  "Hadi yine lego çiçek yapalım 🌸",
+  "Bugün Lily, Lila, Lilo kimde?",
+  "Yine pick filbert mi alıyoruz?",
+  "Beraber yürüyoruz dimii 🚶‍♀️🚶‍♂️",
+  "Aşkım bak biz 💜",
+  "Aşkım ojelerin çok yakışmış 💅",
+  "Birtanem film çok güzeldi 🎬",
+  "Nick ve Judy biz dimii 🦊🐰",
+  "Hiç ayrılmayalım hayatım",
+  "Yine mi Brew deyiz güzelim ☕",
+  "Aşkım gülmeeee 😆",
+  "Öpim öpim öpim 😘",
+  "Hadi kağıttan yılbaşı ağacı yapalım 🎄"
+];
+
+let index = 0;
+
+/* ❤️ + MINECRAFT KALPLER */
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML = Math.random() > 0.5 ? "💜" : "❤";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.top = "110vh";
+  heart.style.animationDuration = 4 + Math.random()*4 + "s";
+
+  heart.onclick = ()=>{
+    alert(messages[index]);
+    index = (index + 1) % messages.length;
+  };
+
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+}
+
+setInterval(createHeart,500);
+
+/* ⏳ SAYAÇ */
+const startDate = new Date("2025-08-30T00:00:00");
+
+function updateCounter(){
+  const now = new Date();
+  let diff = now - startDate;
+  if(diff < 0) diff = 0;
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor(diff / (1000*60*60) % 24);
+  const minutes = Math.floor(diff / (1000*60) % 60);
+  const seconds = Math.floor(diff / 1000 % 60);
+
+  document.getElementById("counter").innerHTML =
+    `💜 ${days} gün ${hours} saat ${minutes} dk ${seconds} sn 💜`;
+}
+
+setInterval(updateCounter,1000);
+updateCounter();
+</script>
+
+</body>
+</html>
