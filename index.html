@@ -151,47 +151,53 @@ h1{
     <textarea id="comment" placeholder="Yorumunu yaz..." required></textarea><br>
     <button type="submit">Gönder</button>
   </form>
-
-  <div id="comments-list">
-    <!-- Yorumlar buraya eklenecek -->
-  </div>
-</div>
-
-<script>
-const form = document.getElementById('comment-form');
-const commentsList = document.getElementById('comments-list');
-
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const title = document.getElementById('title').value;
-    const nickname = document.getElementById('nickname').value;
-    const comment = document.getElementById('comment').value;
-
-    const commentItem = document.createElement('div');
-    commentItem.className = 'comment-item';
-    commentItem.innerHTML = `<h3>${title}</h3><p><strong>${nickname}:</strong> ${comment}</p>`;
-    commentsList.appendChild(commentItem);
-
-    form.reset();
-});
-</script>
-
-<style>
-#comment-section {
-    margin-top: 50px;
-    text-align: center;
+  <style>
+body{
+    margin:0;
+    background:#1b1029;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Arial, sans-serif;
 }
 
-#comments-list {
-    margin-top: 20px;
+#typing{
+    color:#d8b4fe;
+    font-size:55px;
+    font-weight:bold;
+    border-right:4px solid white;
+    white-space:nowrap;
+    overflow:hidden;
+    animation:blink .8s infinite;
 }
 
-.comment-item {
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
+@keyframes blink{
+    50%{
+        border-color:transparent;
+    }
 }
 </style>
+</head>
+
+<body>
+
+<h1 id="typing"></h1>
+
+<script>
+const text = "💜 İyi Ki Doğdun Birtanemmm 💜";
+let i = 0;
+
+function yaz() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(yaz, 100);
+    }
+}
+
+yaz();
+</script>
   
 <div class="container">
 <h1>💜 CANIMM BALIMM 💜</h1>
@@ -308,6 +314,16 @@ window.onload = () => {
         spread: 360,
         ticks: 80,
         zIndex: 9999
+        colors: [
+            "#b5179e",
+            "#7209b7",
+            "#560bad",
+            "#9d4edd",
+            "#c77dff",
+            "#e0aaff",
+            "#ffffff",
+            "#e0b0ff"
+        ]
     };
 
     function randomInRange(min, max) {
